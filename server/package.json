@@ -1,0 +1,17 @@
+{
+  "name": "error-alarm",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Pablo Sagastizabal",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.2"
+  },
+  "engines": {
+    "node": "12.13.0",
+    "npm": "6.12.0"
+  }
+}
