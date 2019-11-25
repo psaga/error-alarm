@@ -34,7 +34,7 @@ function getAllErrors() {
         r.open("GET", `${urlServer}log`, true);
         r.send();
     } catch {
-        console.log('There was an error trying to connect to server logger.');
+        console.log('There was an error trying to connect to server log.');
     }
     
 }

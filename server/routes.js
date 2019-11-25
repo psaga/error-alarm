@@ -3,14 +3,14 @@
 module.exports = (router) => {
     
     const fs = require('fs'),
-        logger_path = './error.log'
+        log_path = './error.log'
 
     router.route('/log')
         .get(function (req, res, next) {
             try {
                 let data = [];
-                if (fs.existsSync(logger_path)) {
-                    data = fs.readFileSync(logger_path, 'utf8').toString().split("\n");
+                if (fs.existsSync(log_path)) {
+                    data = fs.readFileSync(log_path, 'utf8').toString().split("\n");
                 } 
                 res.status(200);
                 res.json(data);
@@ -28,7 +28,7 @@ module.exports = (router) => {
                 let result = logError(error)
                 if(result === 'saved') {
                     const logs = fs
-                      .readFileSync(logger_path, "utf8",)
+                      .readFileSync(log_path, "utf8",)
                       .toString()
                       .split("\n");
                       /* Return only the last log entry. */
@@ -55,9 +55,9 @@ module.exports = (router) => {
             let logs = [];
 
             /* Get the log file. */
-            if (fs.existsSync(logger_path)) {
+            if (fs.existsSync(log_path)) {
               logs = fs
-                .readFileSync(logger_path, "utf8")
+                .readFileSync(log_path, "utf8")
                 .toString()
                 .split("\n");
             }
@@ -67,7 +67,7 @@ module.exports = (router) => {
               date.toISOString() + " - ERROR_CODE: " + error + "\n";
 
             /* Create a new log entry. */
-            fs.appendFileSync(logger_path, log_error, { encoding: "utf8" });
+            fs.appendFileSync(log_path, log_error, { encoding: "utf8" });
 
             /* Point to the time one minute before now. */
             const date_one_minute_before = new Date(date - 60 * 1000);
@@ -94,7 +94,7 @@ module.exports = (router) => {
                   date.toISOString() +
                   " - Frequently Error Reported Vía Email.\n";
                 /* Register in the log that the frequently warning has been sent. */
-                fs.appendFileSync(logger_path, log_mail, { encoding: "utf8" });
+                fs.appendFileSync(log_path, log_mail, { encoding: "utf8" });
               }
             }
             return "saved";
